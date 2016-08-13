@@ -6,7 +6,7 @@ config.settings = {};
 config.settings.num_top_results = 10;
 
 // sets whether the view count will be shown next to the top results on the homepage
-config.settings.show_view_count = true;
+config.settings.show_view_count = false;
 
 // sets the website title
 config.settings.website_title = "openKB";
@@ -18,10 +18,10 @@ config.settings.password_protect = false;
 config.settings.show_kb_meta = true;
 
 // whether users are allowed to suggest articles without a login
-config.settings.suggest_allowed = true;
+config.settings.suggest_allowed = false;
 
 // Controls whether the authors email address is displayed in the meta. Needs "config.settings.show_kb_meta" set to true
-config.settings.show_author_email = true;
+config.settings.show_author_email = false;
 
 // Comma separated list of tags to be featured on the home page
 config.settings.featured_tags = "help,info,kb";

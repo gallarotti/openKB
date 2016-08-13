@@ -50,19 +50,20 @@
 							<div class="row">
 								{{#each this}}
 									<div class="col-md-4">
-										<div class="panel panel-default">
-											<div class="panel-heading"><a href="/searchtag/{{this.keyword}}">{{this.keyword}}</a></div>
-											<table class="table">
+										<div class="panel panel-success">
+											<div class="panel-heading">{{this.keyword}}</div>
+											<ul class="list-group">
 												{{#each this.results}}
-													<tr><td>
+													<li class="list-group-item">
 														{{#if kb_permalink}}
 															<a href="/kb/{{this.kb_permalink}}">{{this.kb_title}}</a>
 														{{else}}
 															<a href="/kb/{{this._id}}">{{this.kb_title}}</a>
 														{{/if}}
-													</td></tr>
+													</li>
 												{{/each}}
-											</table>
+											</ul>
+											<div class="panel-footer text-right"><a href="/searchtag/{{this.keyword}}">view all</a></div>
 										</div>
 									</div>
 								{{/each}}
@@ -72,8 +73,7 @@
 				</div>
 			{{/if}}
 			<div class="panel panel-default" style="margin-top: 30px;">
-				<div class="panel-heading">Top articles</div>
-				<div class="panel-body">
+				<div class="panel-heading">Recently updated articles</div>
 					<ul class="list-group">
 						{{#each top_results}}
 							 <li class="list-group-item">
@@ -94,7 +94,6 @@
 							 </li>
 						{{/each}}
 					</ul>
-				</div>
 			</div>
 		{{/if}}
 	</div>
