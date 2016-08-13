@@ -22,7 +22,13 @@ $(document).ready(function() {
         // setup editors
         var simplemde = new SimpleMDE({
             element: $("#editor")[0],
-            toolbar: ["bold", "italic", "heading", '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'table', 'horizontal-rule', 'guide']
+			autosave: {
+				enabled: true,
+				uniqueId: "KAD",
+				delay: 60000,
+			},
+            toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "heading-smaller", "heading-bigger", '|', 'quote', 'unordered-list', 'ordered-list', "code", '|', 'link', 'image', 'table', 'horizontal-rule', '|', 'guide'],
+			status: ["autosave", "lines", "words", "cursor"]
         });
 
         // setup inline attachments
