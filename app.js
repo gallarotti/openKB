@@ -21,7 +21,12 @@ db.kb = new nedb({ filename: path.join(__dirname,'/data/kb.db'), autoload: true 
 
 // setup lunr indexing
 var lunr_index = lunr(function () {
-    this.field('kb_title', { boost: 10 });
+  this.field('kb_title', { boost: 20 });
+  this.field('kb_body');
+  this.field('kb_keywords', { boost: 10 });
+});
+
+var lunr_tags_index = lunr(function () {
     this.field('kb_keywords');
 });
 
