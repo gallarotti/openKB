@@ -97,13 +97,7 @@
 									{{else}}
 										<a href="/kb/{{this._id}}">{{this.kb_title}}</a>
 									{{/if}}
-                                    {{#if ../../config.settings.show_published_date}}
-                                        {{#if ../../config.settings.show_view_count}}
-                                            <span class="pull-right view_count">&nbsp; / <strong>Date:</strong> {{format_date this.kb_published_date}}</span>
-                                        {{else}}
-                                            <span class="pull-right view_count"><strong>Date:</strong> {{format_date this.kb_published_date}}</span>
-                                        {{/if}}
-                                    {{/if}}
+                                    <span class="pull-right view_count"><strong>Last update date:</strong> {{format_date this.kb_last_updated}}</span>
 									{{#if ../config.settings.show_view_count}}
 								 		<span class="pull-right view_count"><strong>View count:</strong> {{view_count this.kb_viewcount}}</span>
 									{{/if}}

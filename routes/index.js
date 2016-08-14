@@ -36,12 +36,12 @@ router.get('/', restrict, function(req, res, next){
 				};
 			};
 			// we search on the lunr indexes
-			db.kb.find({ _id: { $in: lunr_id_array}, kb_published:'true'}).sort({kb_last_updated: -1}).limit(config.settings.featured_tags_limit).exec(saveResults(tag_list[i], i));
+			req.db.kb.find({ _id: { $in: lunr_id_array}, kb_published:'true'}).sort({kb_last_updated: -1}).limit(config.settings.featured_tags_limit).exec(saveResults(tag_list[i], i));
 		}
 	}
 
 	// get the top 5 results based on viewcount
-    req.db.kb.find({kb_published: 'true'}).sort(sortBy).limit(config.settings.num_top_results).exec(function (err, top_results){
+    req.db.kb.find({kb_published: 'true'}).sort({kb_last_updated: -1}).limit(config.settings.num_top_results).exec(function (err, top_results){
         res.render('index', {
             title: config.settings.website_title,
             'top_results': top_results,
@@ -533,7 +533,7 @@ router.get('/articles/:tag', function(req, res){
 	});
 
 	// we search on the lunr indexes
-	db.kb.find({ _id: { $in: lunr_id_array}}).sort({kb_last_updated: -1}).exec(function (err, results) {
+	req.db.kb.find({ _id: { $in: lunr_id_array}}).sort({kb_last_updated: -1}).exec(function (err, results) {
 		res.render('articles', {
 			title: 'Articles',
 			'results': results,
@@ -1060,7 +1060,6 @@ router.get('/search/:tag', restrict, function(req, res){
 
 // search kb's
 router.get('/searchtag/:tag', restrict, function(req, res) {
-	var db = req.db;
 	var search_term = req.params.tag;
 	var lunr_tags_index = req.lunr_tags_index;
 	var config = require('./config');
@@ -1073,7 +1072,7 @@ router.get('/searchtag/:tag', restrict, function(req, res) {
 	});
 
 	// we search on the lunr indexes
-	db.kb.find({ _id: { $in: lunr_id_array}, kb_published:'true'}, function (err, results) {
+	req.db.kb.find({ _id: { $in: lunr_id_array}, kb_published:'true'}, function (err, results) {
 		res.render('index', {
 			title: 'Results',
 			"results": results,
