@@ -104,7 +104,23 @@ $(document).ready(function(){
     // convert editor markdown to HTML and display in #preview div
     function convertTextAreaToMarkdown(){
         var classy = window.markdownItClassy;
-        var mark_it_down = window.markdownit({html: true, linkify: true, typographer: true, breaks: true});
+        var mark_it_down = window.markdownit({
+			html: true, 
+			linkify: true, 
+			highlight: function (str, lang) {
+				if (lang && hljs.getLanguage(lang)) {
+					try {
+						return hljs.highlight(lang, str).value;
+					} catch (ex)
+					{
+						console.log(ex.message);
+					}
+
+					return ''; // use external default escaping
+				}
+			},
+			typographer: true, 
+			breaks: true});
         mark_it_down.use(classy);
         var html = mark_it_down.render(simplemde.value());
 
