@@ -24,7 +24,7 @@ $(document).ready(function() {
             element: $("#editor")[0],
 			autosave: {
 				enabled: true,
-				uniqueId: "KAD",
+				uniqueId: ("openKB-" + window.location.pathname.split("/").pop()),
 				delay: 60000,
 			},
             toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "heading-smaller", "heading-bigger", '|', 'quote', 'unordered-list', 'ordered-list', "code", '|', 'link', 'image', 'table', 'horizontal-rule', '|', 'guide'],
@@ -41,6 +41,37 @@ $(document).ready(function() {
         simplemde.codemirror.on("change", function(){
             convertTextAreaToMarkdown();
         });
+
+		preview = document.getElementById("preview");
+		if(preview !== null) {
+			// Syncs scroll  editor -> preview
+			var cScroll = false;
+			var pScroll = false;
+			simplemde.codemirror.on("scroll", function(v) {
+				if(cScroll) {
+					cScroll = false;
+					return;
+				}
+				pScroll = true;
+				var height = v.getScrollInfo().height - v.getScrollInfo().clientHeight;
+				var ratio = parseFloat(v.getScrollInfo().top) / height;
+				var move = (preview.scrollHeight - preview.clientHeight) * ratio;
+				preview.scrollTop = move;
+			});
+
+			// Syncs scroll  preview -> editor
+			preview.onscroll = function() {
+				if(pScroll) {
+					pScroll = false;
+					return;
+				}
+				cScroll = true;
+				var height = preview.scrollHeight - preview.clientHeight;
+				var ratio = parseFloat(preview.scrollTop) / height;
+				var move = (simplemde.codemirror.getScrollInfo().height - simplemde.codemirror.getScrollInfo().clientHeight) * ratio;
+				simplemde.codemirror.scrollTo(0, move);
+			};
+		}
     }
 
     // if in the editor, trap ctrl+s and cmd+s shortcuts and save the article
